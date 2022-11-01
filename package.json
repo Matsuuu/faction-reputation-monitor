@@ -10,6 +10,7 @@
     "start": "web-dev-server"
   },
   "dependencies": {
+    "chartjs-elements": "file:vendor/chartjs-elements",
     "lit": "^2.0.0-rc.2"
   },
   "devDependencies": {
