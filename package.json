@@ -1,0 +1,18 @@
+{
+  "name": "faction-reputation-monitor",
+  "description": "Webcomponent faction-reputation-monitor following open-wc recommendations",
+  "license": "MIT",
+  "author": "faction-reputation-monitor",
+  "version": "0.0.0",
+  "main": "index.js",
+  "module": "index.js",
+  "scripts": {
+    "start": "web-dev-server"
+  },
+  "dependencies": {
+    "lit": "^2.0.0-rc.2"
+  },
+  "devDependencies": {
+    "@web/dev-server": "^0.1.21"
+  }
+}
