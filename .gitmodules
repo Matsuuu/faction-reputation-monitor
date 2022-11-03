@@ -1,0 +1,3 @@
+[submodule "vendor/chartjs-elements"] 
+  path = vendor/chartjs-elements 
+  url = git@github.com:Matsuuu/chartjs-elements.git
