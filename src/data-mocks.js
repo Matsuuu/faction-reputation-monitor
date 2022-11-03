@@ -17,7 +17,7 @@ export const factionReputationsMock = {
         {
             "faction": {
                 "description": "test description3",
-                "hex_color": "#FF3311",
+                "hex_color": "#FF9911",
                 "id": 3,
                 "name": "testname3",
                 "symbol_filepath": "/static/images/factionsymbols/test3.png"

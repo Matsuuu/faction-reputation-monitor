@@ -1,53 +1,63 @@
 import "chartjs-elements";
 
 import { css, html, LitElement } from 'lit';
+import { factionReputationsMock } from "./data-mocks";
 
 export class FactionReputationMonitor extends LitElement {
-    static get styles() {
-        return css`
-      :host {
-        display: block;
-        padding: 25px;
-        color: var(--faction-reputation-monitor-text-color, #000);
-      }
 
-        section {
+    static properties = {
+        factionId: { type: Number, attribute: "faction-id" },
+        factionReputationData: { type: Object }
+    }
+
+    static styles = css`
+        :host {
             display: flex;
+            max-width: 300px; 
         }
-    `;
-    }
-
-    static get properties() {
-        return {
-        };
-    }
+    `
 
     constructor() {
         super();
+
+        this.characterId = undefined;
+        this.factionReputationData = undefined;
+    }
+
+    updated(_changedProperties) {
+        if (_changedProperties.has("factionId")) {
+            this.fetchCharacterReputationData();
+        }
+    }
+
+    fetchCharacterReputationData() {
+        this.factionReputationData = factionReputationsMock;
+        // TODO
     }
 
     render() {
-        return html`
-            <section>
-              ${this.renderChart()}
-            </section>
-    `;
-    }
-
-    renderChart() {
+        if (!this.factionReputationData) return html``;
 
         return html`
       <chart-js type="bar" aspect-ratio="1">
-        <chart-js-title text="Foo" size="24" padding="5"></chart-js-title>
+        <chart-js-title text="${this.factionReputationData.name}" size="24" padding="5"></chart-js-title>
+        <chart-js-legend align="center"></chart-js-legend>
 
-        <chart-js-dataset label="Data">
-            <chart-js-data label="HTML" data="15"></chart-js-data>
-            <chart-js-data label="Javascript" data="10"></chart-js-data>
-            <chart-js-data label="CSS" data="8"></chart-js-data>
-        </chart-js-dataset>
+        ${this.factionReputationData.reputations.map(rep => html`
+            <chart-js-dataset label="${rep.faction.name}">
+            <chart-js-data 
+                border-color="${rep.faction.hex_color}" 
+                background-color="${rep.faction.hex_color + '66'}" 
+                label="Reputation" 
+                data="15"
+                border-width="2"
+            ></chart-js-data>
+            </chart-js-dataset>
+        `)}
 
       </chart-js>
-  `;
-
+        `;
     }
 }
+
+customElements.define("faction-reputation-monitor", FactionReputationMonitor);
