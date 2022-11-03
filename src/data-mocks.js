@@ -69,7 +69,7 @@ export const characterReputationMock = {
         {
             "faction": {
                 "description": "test description2",
-                "hex_color": "#FF0011",
+                "hex_color": "#00FF11",
                 "id": 2,
                 "name": "testname2",
                 "symbol_filepath": "/static/images/factionsymbols/test2.png"
