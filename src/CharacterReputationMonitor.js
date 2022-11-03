@@ -7,7 +7,7 @@ export class CharacterReputationMonitor extends LitElement {
 
     static properties = {
         characterId: { type: Number, attribute: "character-id" },
-        characterReputationData: { type: Object }
+        characterReputationData: { type: Array }
     }
 
     static styles = css`
@@ -21,7 +21,7 @@ export class CharacterReputationMonitor extends LitElement {
         super();
 
         this.characterId = undefined;
-        this.characterReputationData = undefined;
+        this.characterReputationData = [];
     }
 
     updated(_changedProperties) {
@@ -38,25 +38,25 @@ export class CharacterReputationMonitor extends LitElement {
     render() {
         if (!this.characterReputationData) return html``;
 
-        return html`
-      <chart-js type="bar" aspect-ratio="1">
-        <chart-js-title text="${this.characterReputationData.name}" size="24" padding="5"></chart-js-title>
-        <chart-js-legend align="center"></chart-js-legend>
+        return this.characterReputationData.map(characterRep => html`
+          <chart-js type="bar" aspect-ratio="1">
+            <chart-js-title text="${characterRep.name}" size="24" padding="5"></chart-js-title>
+            <chart-js-legend align="center"></chart-js-legend>
 
-        ${this.characterReputationData.reputations.map(rep => html`
-            <chart-js-dataset label="${rep.faction.name}">
-            <chart-js-data 
-                border-color="${rep.faction.hex_color}" 
-                background-color="${rep.faction.hex_color + '66'}" 
-                label="Reputation" 
-                data="15"
-                border-width="2"
-            ></chart-js-data>
-            </chart-js-dataset>
-        `)}
+            ${characterRep.reputations.map(rep => html`
+                <chart-js-dataset label="${rep.faction.name}">
+                <chart-js-data 
+                    border-color="${rep.faction.hex_color}" 
+                    background-color="${rep.faction.hex_color + '66'}" 
+                    label="Reputation" 
+                    data="15"
+                    border-width="2"
+                ></chart-js-data>
+                </chart-js-dataset>
+            `)}
 
-      </chart-js>
-        `;
+          </chart-js>
+        `);
     }
 }
 

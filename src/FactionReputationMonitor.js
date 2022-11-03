@@ -7,7 +7,7 @@ export class FactionReputationMonitor extends LitElement {
 
     static properties = {
         factionId: { type: Number, attribute: "faction-id" },
-        factionReputationData: { type: Object }
+        factionReputationData: { type: Array }
     }
 
     static styles = css`
@@ -38,12 +38,12 @@ export class FactionReputationMonitor extends LitElement {
     render() {
         if (!this.factionReputationData) return html``;
 
-        return html`
+        return this.factionReputationData.map(factionRep => html`
       <chart-js type="bar" aspect-ratio="1">
-        <chart-js-title text="${this.factionReputationData.name}" size="24" padding="5"></chart-js-title>
+        <chart-js-title text="${factionRep.name}" size="24" padding="5"></chart-js-title>
         <chart-js-legend align="center"></chart-js-legend>
 
-        ${this.factionReputationData.reputations.map(rep => html`
+        ${factionRep.reputations.map(rep => html`
             <chart-js-dataset label="${rep.faction.name}">
             <chart-js-data 
                 border-color="${rep.faction.hex_color}" 
@@ -56,7 +56,7 @@ export class FactionReputationMonitor extends LitElement {
         `)}
 
       </chart-js>
-        `;
+        `);
     }
 }
 
