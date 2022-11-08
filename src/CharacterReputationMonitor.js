@@ -4,7 +4,6 @@ import { characterReputationMock } from "./data-mocks";
 
 export class CharacterReputationMonitor extends LitElement {
 
-
     static properties = {
         characterId: { type: Number, attribute: "character-id" },
         characterReputationData: { type: Array }
@@ -30,18 +29,28 @@ export class CharacterReputationMonitor extends LitElement {
         }
     }
 
-    fetchCharacterReputationData() {
-        this.characterReputationData = characterReputationMock;
+    async fetchCharacterReputationData() {
+        //this.characterReputationData = characterReputationMock;
+        this.characterReputationData = await fetch("https://pakkanen.dev/api/campaigns/1/characters-with-reputations")
+            .then(res => res.json());
+        console.log(this.characterReputationData);
         // TODO
     }
 
     render() {
         if (!this.characterReputationData) return html``;
 
+        const repsInData = this.characterReputationData.flatMap(entry =>
+            entry.reputations.flatMap(rep =>
+                rep.reputation
+            ));
+        const maxRepInCharts = Math.floor(Math.max(...repsInData) * 1.1);
+
         return this.characterReputationData.map(characterRep => html`
           <chart-js type="bar" aspect-ratio="1">
             <chart-js-title text="${characterRep.name}" size="24" padding="5"></chart-js-title>
-            <chart-js-legend align="center"></chart-js-legend>
+            <chart-js-legend align="start" position="bottom" use-point-style></chart-js-legend>
+            <chart-js-scale name="y" suggested-max="${maxRepInCharts}"></chart-js-scale>
 
             ${characterRep.reputations.map(rep => html`
                 <chart-js-dataset label="${rep.faction.name}">
@@ -49,7 +58,7 @@ export class CharacterReputationMonitor extends LitElement {
                     border-color="${rep.faction.hex_color}" 
                     background-color="${rep.faction.hex_color + '66'}" 
                     label="Reputation" 
-                    data="15"
+                    data="${rep.reputation}"
                     border-width="2"
                 ></chart-js-data>
                 </chart-js-dataset>
