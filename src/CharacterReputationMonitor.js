@@ -11,7 +11,7 @@ export class CharacterReputationMonitor extends LitElement {
     static styles = css`
         :host {
             display: flex;
-            max-width: 300px; 
+            flex-wrap: wrap;
         }
     `
 

@@ -11,7 +11,7 @@ export class FactionReputationMonitor extends LitElement {
     static styles = css`
         :host {
             display: flex;
-            max-width: 300px; 
+            flex-wrap: wrap;
         }
     `
 
@@ -29,7 +29,7 @@ export class FactionReputationMonitor extends LitElement {
     }
 
     async fetchCharacterReputationData() {
-        this.factionReputationData = await fetch(`https://pakkanen.dev/api/factions/with-reputations`)
+        this.factionReputationData = await fetch(`https://pakkanen.dev/api/campaigns/${this.campaignId}/factions-with-reputations`)
             .then(res => res.json());
     }
 
