@@ -1,12 +1,10 @@
 import "chartjs-elements";
-
 import { css, html, LitElement } from 'lit';
-import { factionReputationsMock } from "./data-mocks";
 
 export class FactionReputationMonitor extends LitElement {
 
     static properties = {
-        factionId: { type: Number, attribute: "faction-id" },
+        campaignId: { type: Number, attribute: "campaign-id" },
         factionReputationData: { type: Array }
     }
 
@@ -20,18 +18,18 @@ export class FactionReputationMonitor extends LitElement {
     constructor() {
         super();
 
-        this.characterId = undefined;
+        this.campaignId = undefined;
         this.factionReputationData = undefined;
     }
 
     updated(_changedProperties) {
-        if (_changedProperties.has("factionId")) {
+        if (_changedProperties.has("campaignId")) {
             this.fetchCharacterReputationData();
         }
     }
 
     fetchCharacterReputationData() {
-        this.factionReputationData = factionReputationsMock;
+        this.factionReputationData = [];
         // TODO
     }
 

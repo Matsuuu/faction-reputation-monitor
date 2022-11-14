@@ -7,13 +7,18 @@
   "main": "index.js",
   "module": "index.js",
   "scripts": {
-    "start": "web-dev-server"
+    "start": "web-dev-server",
+    "build": "rimraf dist && rollup -c rollup.config.js"
   },
   "dependencies": {
     "chartjs-elements": "file:vendor/chartjs-elements",
     "lit": "^2.0.0-rc.2"
   },
   "devDependencies": {
-    "@web/dev-server": "^0.1.21"
+    "@open-wc/building-rollup": "^2.2.1",
+    "@web/dev-server": "^0.1.21",
+    "deepmerge": "^4.2.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.79.1"
   }
 }

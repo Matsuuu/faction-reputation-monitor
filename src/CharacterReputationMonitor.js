@@ -1,11 +1,10 @@
 import { LitElement, html, css } from "lit";
 import "chartjs-elements";
-import { characterReputationMock } from "./data-mocks";
 
 export class CharacterReputationMonitor extends LitElement {
 
     static properties = {
-        characterId: { type: Number, attribute: "character-id" },
+        campaignId: { type: Number, attribute: "campaign-id" },
         characterReputationData: { type: Array }
     }
 
@@ -19,19 +18,19 @@ export class CharacterReputationMonitor extends LitElement {
     constructor() {
         super();
 
-        this.characterId = undefined;
+        this.campaignId = undefined;
         this.characterReputationData = [];
     }
 
     updated(_changedProperties) {
-        if (_changedProperties.has("characterId")) {
+        if (_changedProperties.has("campaignId")) {
             this.fetchCharacterReputationData();
         }
     }
 
     async fetchCharacterReputationData() {
         //this.characterReputationData = characterReputationMock;
-        this.characterReputationData = await fetch("https://pakkanen.dev/api/campaigns/1/characters-with-reputations")
+        this.characterReputationData = await fetch(`https://pakkanen.dev/api/campaigns/${this.campaignId}/characters-with-reputations`)
             .then(res => res.json());
         console.log(this.characterReputationData);
         // TODO

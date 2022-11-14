@@ -19,12 +19,10 @@
       const title = "Hello owc World!";
       render(
         html`
-          <character-reputation-monitor
-            character-id="1"
-          ></character-reputation-monitor>
+          <character-reputation-monitor campaign-id="1"></character-reputation-monitor>
 
           <faction-reputation-monitor
-            faction-id="1"
+            campaign-id="1"
           ></faction-reputation-monitor>
         `,
         document.querySelector("#demo")
