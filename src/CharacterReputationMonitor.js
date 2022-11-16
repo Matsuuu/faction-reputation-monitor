@@ -30,7 +30,8 @@ export class CharacterReputationMonitor extends LitElement {
 
     async fetchCharacterReputationData() {
         //this.characterReputationData = characterReputationMock;
-        this.characterReputationData = await fetch(`https://pakkanen.dev/api/campaigns/${this.campaignId}/characters-with-reputations`)
+        const origin = window.location.origin;
+        this.characterReputationData = await fetch(`${origin}/api/campaigns/${this.campaignId}/characters-with-reputations`)
             .then(res => res.json());
         console.log(this.characterReputationData);
         // TODO
@@ -53,10 +54,10 @@ export class CharacterReputationMonitor extends LitElement {
 
             ${characterRep.reputations.map(rep => html`
                 <chart-js-dataset label="${rep.faction.name}">
-                <chart-js-data 
-                    border-color="${rep.faction.hex_color}" 
-                    background-color="${rep.faction.hex_color + '66'}" 
-                    label="Reputation" 
+                <chart-js-data
+                    border-color="${rep.faction.hex_color}"
+                    background-color="${rep.faction.hex_color + '66'}"
+                    label="Reputation"
                     data="${rep.reputation}"
                     border-width="2"
                 ></chart-js-data>
