@@ -29,7 +29,8 @@ export class FactionReputationMonitor extends LitElement {
     }
 
     async fetchCharacterReputationData() {
-        this.factionReputationData = await fetch(`https://pakkanen.dev/api/campaigns/${this.campaignId}/factions-with-reputations`)
+        const origin = window.location.origin;
+        this.factionReputationData = await fetch(`${origin}/api/campaigns/${this.campaignId}/factions-with-reputations`)
             .then(res => res.json());
     }
 
@@ -50,10 +51,10 @@ export class FactionReputationMonitor extends LitElement {
 
         ${factionRep.reputations.map(rep => html`
             <chart-js-dataset label="${rep.faction.name}">
-            <chart-js-data 
-                border-color="${rep.faction.hex_color}" 
-                background-color="${rep.faction.hex_color + '66'}" 
-                label="Reputation" 
+            <chart-js-data
+                border-color="${rep.faction.hex_color}"
+                background-color="${rep.faction.hex_color + '66'}"
+                label="Reputation"
                 data="${rep.reputation}"
                 border-width="2"
             ></chart-js-data>
